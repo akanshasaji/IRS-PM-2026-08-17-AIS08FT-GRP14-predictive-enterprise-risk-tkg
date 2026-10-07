@@ -1,132 +1,391 @@
-﻿### [ Practice Module ] Project Submission Template: Github Repository & Zip File
-
-**[ Naming Convention ]** CourseCode-StartDate-BatchCode-TeamName-ProjectName.zip
-
-* **[ MTech Thru-Train Group Project Naming Example ]** IRS-PM-2020-01-18-IS02PT-GRP-AwsomeSG-HDB_BTO_Recommender.zip
-
-* **[ MTech Stackable Group Project Naming Example ]** IRS-PM-2020-01-18-STK02-GRP-AwsomeSG-HDB_BTO_Recommender.zip
-
-[Online editor for this README.md markdown file](https://pandao.github.io/editor.md/en.html "pandao")
-
----
-
-### <<<<<<<<<<<<<<<<<<<< Start of Template >>>>>>>>>>>>>>>>>>>>
-
+﻿# [ Practice Module ] Project Submission
 ---
 
 ## SECTION 1 : PROJECT TITLE
-## Singapore Housing & Deveoplment Board - BTO Recommender System
 
-<img src="SystemCode/clips/static/hdb-bto.png"
-     style="float: left; margin-right: 0px;" />
+# Predictive Enterprise Project Risk Analysis using Temporal Knowledge Graphs
+
 
 ---
 
 ## SECTION 2 : EXECUTIVE SUMMARY / PAPER ABSTRACT
-Singapore ranks amongst countries with the highest population density in the world. In a bid to have firm control over long term urban planning, the Singapore government came up with the “Built to Order” (abbreviated BTO) initiative back in 2001. These are new Housing Development Board (HDB) flats tightly controlled by their eligibility and quantity released every year. In more recent years, the modern BTO scheme in Singapore requires a waiting period of 3-4 years, and is generally targeted at young Singaporean couples looking to purchase their first property and set up a family. Nationality and income ceilings are some of the broad filters that determine one’s eligibility for the highly sought after projects. 
 
+Software projects generate large volumes of heterogeneous information across issue tracking systems, requirements documents, meeting discussions, and other project artefacts. Important knowledge about requirements, dependencies, risks, decisions, project progress, and potential delivery problems is often distributed across these different sources and evolves over time.
 
-Our team, comprising of 6 young Singaporeans, all hope to be property owners one day. Many of our peers opt for BTO flats due to their affordability, existence of financial aid from the government, as well as their resale value. However, there often exists a knowledge gap for these young couples during the decision making process and they end up making potentially regretful decisions. We would like to bridge this knowledge gap, and have hence chosen to base our project on creating a recommender system for BTO flats, utilizing the data from recent launches in Tampines, Eunos, Sengkang and Punggol. 
+This project investigates the use of **Large Language Models (LLMs), Temporal Knowledge Graphs, Machine Learning, and Agentic Retrieval-Augmented Generation (RAG)** to construct an intelligent software project analysis and decision-support system.
 
+The project uses historical software project data derived primarily from public Jira repositories. To create a richer multi-source project environment, selected Jira project instances are supplemented with synthetically generated Project Requirements Documents (PRDs) and meeting transcripts. Generated artefacts are temporally constrained by the Jira information available at the corresponding point in the project timeline and maintain provenance information linking them to their supporting source records.
 
-Using the techniques imparted to us in lectures, our group first set out to build a sizeable knowledge base via conducting an interview and administering a survey. While building the system, we utilized tools such as Java to scrape real time data from HDB website and transform it into a database, CLIPS to synthesize the rule based reasoning process, and Python to integrate it into an easy to use UI for the everyday user. To add icing on the cake, we even hosted the system on a website so that the everyday user can access it through the click of a link.
+An LLM-based information extraction pipeline is then used to extract structured entities, relationships, events, and temporal information from Jira issues, PRDs, and meeting transcripts. Entity resolution is performed before the extracted information is integrated into a **temporal knowledge graph**, allowing the state and evolution of software projects to be represented over time.
 
+In parallel, temporal project features are constructed for a **machine-learning prediction pipeline**, with XGBoost used to investigate predictive signals associated with software project outcomes and risks.
 
-Our team had an amazing time working on this project, and hope to share our insights with everyone. Despite a focus on BTO flats, we would recommend it for everybody interested in understanding property market trends for residence or investment purposes. There truly are a wide array of factors behind the decision to invest in a property, and we only wish there was more time to work on the scope and scale of the project. 
+Finally, an **Agentic Graph RAG** layer combines knowledge retrieval, graph-based reasoning, machine-learning outputs, and LLM-based interaction to support project-related queries and explanations.
 
----
+The overall system is organised into four major components:
 
-## SECTION 3 : CREDITS / PROJECT CONTRIBUTION
+1. **Data Generation and Preparation**
+2. **Knowledge Extraction and Temporal Knowledge Graph Construction**
+3. **Machine Learning and Predictive Modelling**
+4. **Agentic Graph RAG and Decision Support**
 
-| Official Full Name  | Student ID (MTech Applicable)  | Work Items (Who Did What) | Email (Optional) |
-| :------------ |:---------------:| :-----| :-----|
-| Desmond Chua | A1234567A | xxxxxxxxxx yyyyyyyyyy zzzzzzzzzz| A1234567A@nus.edu.sg |
-| Chang Ye Han | A1234567B | xxxxxxxxxx yyyyyyyyyy zzzzzzzzzz| A1234567B@gmail.com |
-| Chee Jia Wei | A1234567C | xxxxxxxxxx yyyyyyyyyy zzzzzzzzzz| A1234567C@outlook.com |
-| Ganesh Kumar | A1234567D | xxxxxxxxxx yyyyyyyyyy zzzzzzzzzz| A1234567D@yahoo.com |
-| Jeanette Lim | A1234567E | xxxxxxxxxx yyyyyyyyyy zzzzzzzzzz| A1234567E@qq.com |
-
----
-
-## SECTION 4 : VIDEO OF SYSTEM MODELLING & USE CASE DEMO
-
-[![Sudoku AI Solver](http://img.youtube.com/vi/-AiYLUjP6o8/0.jpg)](https://youtu.be/-AiYLUjP6o8 "Sudoku AI Solver")
-
-Note: It is not mandatory for every project member to appear in video presentation; Presentation by one project member is acceptable. 
-More reference video presentations [here](https://telescopeuser.wordpress.com/2018/03/31/master-of-technology-solution-know-how-video-index-2/ "video presentations")
+The project will also evaluate the quality of the generated dataset, information extraction and knowledge graph construction, machine-learning performance, and the final retrieval and reasoning system.
 
 ---
 
-## SECTION 5 : USER GUIDE
+## SECTION 3 : PROJECT OBJECTIVES
 
-`Refer to appendix <Installation & User Guide> in project report at Github Folder: ProjectReport`
+The primary objective of this project is to investigate how structured knowledge representation, machine learning, and LLM-based reasoning can be combined to support software project intelligence.
 
-### [ 1 ] To run the system using iss-vm
+The project aims to:
 
-> download pre-built virtual machine from http://bit.ly/iss-vm
-
-> start iss-vm
-
-> open terminal in iss-vm
-
-> $ git clone https://github.com/telescopeuser/Workshop-Project-Submission-Template.git
-
-> $ source activate iss-env-py2
-
-> (iss-env-py2) $ cd Workshop-Project-Submission-Template/SystemCode/clips
-
-> (iss-env-py2) $ python app.py
-
-> **Go to URL using web browser** http://0.0.0.0:5000 or http://127.0.0.1:5000
-
-### [ 2 ] To run the system in other/local machine:
-### Install additional necessary libraries. This application works in python 2 only.
-
-> $ sudo apt-get install python-clips clips build-essential libssl-dev libffi-dev python-dev python-pip
-
-> $ pip install pyclips flask flask-socketio eventlet simplejson pandas
-
----
-## SECTION 6 : PROJECT REPORT / PAPER
-
-`Refer to project report at Github Folder: ProjectReport`
-
-**Recommended Sections for Project Report / Paper:**
-- Executive Summary / Paper Abstract
-- Sponsor Company Introduction (if applicable)
-- Business Problem Background
-- Market Research
-- Project Objectives & Success Measurements
-- Project Solution (To detail domain modelling & system design.)
-- Project Implementation (To detail system development & testing approach.)
-- Project Performance & Validation (To prove project objectives are met.)
-- Project Conclusions: Findings & Recommendation
-- Appendix of report: Project Proposal
-- Appendix of report: Mapped System Functionalities against knowledge, techniques and skills of modular courses: MR, RS, CGS
-- Appendix of report: Installation and User Guide
-- Appendix of report: 1-2 pages individual project report per project member, including: Individual reflection of project journey: (1) personal contribution to group project (2) what learnt is most useful for you (3) how you can apply the knowledge and skills in other situations or your workplaces
-- Appendix of report: List of Abbreviations (if applicable)
-- Appendix of report: References (if applicable)
-
----
-## SECTION 7 : MISCELLANEOUS
-
-`Refer to Github Folder: Miscellaneous`
-
-### HDB_BTO_SURVEY.xlsx
-* Results of survey
-* Insights derived, which were subsequently used in our system
+- Construct a temporally organised, multi-source software project dataset from public Jira records and generated project artefacts.
+- Extract project entities, relationships, events, and temporal information using LLM-based information extraction.
+- Perform entity resolution across heterogeneous project documents.
+- Construct a temporal knowledge graph representing the evolution of software projects.
+- Engineer temporal project features suitable for machine-learning models.
+- Train and evaluate an XGBoost-based predictive model.
+- Develop a Graph RAG retrieval mechanism over the temporal knowledge graph.
+- Develop an agentic reasoning layer capable of combining retrieved project knowledge and predictive outputs.
+- Evaluate the individual system components as well as the overall end-to-end architecture.
 
 ---
 
-### <<<<<<<<<<<<<<<<<<<< End of Template >>>>>>>>>>>>>>>>>>>>
+## SECTION 4 : SYSTEM ARCHITECTURE
+
+The project currently follows the high-level pipeline below:
+
+```text
+Public Jira Dataset
+        |
+        v
++-----------------------------+
+| 1. Data Generation          |
+|                             |
+| - Dataset profiling         |
+| - Project selection         |
+| - Temporal snapshots        |
+| - PRD generation            |
+| - Meeting generation        |
+| - Provenance manifests      |
++-------------+---------------+
+              |
+              | Jira + PRDs + Meetings
+              v
++-----------------------------+
+| 2. Knowledge Graph          |
+|                             |
+| - Entity extraction         |
+| - Relation extraction       |
+| - Temporal extraction       |
+| - Entity resolution         |
+| - Temporal KG construction  |
+| - KG evaluation             |
++-------------+---------------+
+              |
+              | Temporal Knowledge Graph
+              |
+       +------+------+
+       |             |
+       v             v
++-------------+  +------------------+
+| 3. Machine  |  | 4. Agentic      |
+| Learning    |  | Graph RAG       |
+|             |  |                  |
+| - Features  |  | - Graph retrieval|
+| - XGBoost   |  | - Context        |
+| - Evaluation|  | - Agent reasoning|
+| - XAI       |  | - Explanations   |
++------+------+  +--------+---------+
+       |                  |
+       +---------+--------+
+                 |
+                 v
+       Project Intelligence /
+         Decision Support
+```
+
+> The architecture may be refined as implementation and evaluation progress.
 
 ---
 
-**This [Machine Reasoning (MR)](https://www.iss.nus.edu.sg/executive-education/course/detail/machine-reasoning "Machine Reasoning") course is part of the Analytics and Intelligent Systems and Graduate Certificate in [Intelligent Reasoning Systems (IRS)](https://www.iss.nus.edu.sg/stackable-certificate-programmes/intelligent-systems "Intelligent Reasoning Systems") series offered by [NUS-ISS](https://www.iss.nus.edu.sg "Institute of Systems Science, National University of Singapore").**
+## SECTION 5 : REPOSITORY STRUCTURE
 
-**Lecturer: [GU Zhan (Sam)](https://www.iss.nus.edu.sg/about-us/staff/detail/201/GU%20Zhan "GU Zhan (Sam)")**
+The repository follows the project submission structure provided for the Practice Module.
 
-[![alt text](https://www.iss.nus.edu.sg/images/default-source/About-Us/7.6.1-teaching-staff/sam-website.tmb-.png "Let's check Sam' profile page")](https://www.iss.nus.edu.sg/about-us/staff/detail/201/GU%20Zhan)
+```text
+Project/
+│
+├── Miscellaneous/
+│
+├── ProjectReport/
+│
+├── SystemCode/
+│   │
+│   ├── 01_DataGeneration/
+│   │
+│   ├── 02_KnowledgeGraph/
+│   │
+│   ├── 03_MachineLearning/
+│   │
+│   ├── 04_AgenticRAG/
+│   │
+│   └── requirements.txt
+│
+├── Video/
+│
+└── README.md
+```
 
-**zhan.gu@nus.edu.sg**
+### SystemCode Components
+
+#### `01_DataGeneration`
+
+Contains the data preparation and synthetic artefact generation pipeline.
+
+This includes:
+
+- Jira dataset profiling
+- Selection of suitable project instances
+- Construction of temporal snapshots
+- Generation of PRDs
+- Generation of meeting transcripts
+- Generation of provenance and snapshot manifests
+
+#### `02_KnowledgeGraph`
+
+Contains the information extraction and knowledge graph construction pipeline.
+
+This includes:
+
+- Entity extraction
+- Relationship extraction
+- Temporal information extraction
+- Entity resolution
+- Knowledge graph population
+- Temporal knowledge graph construction
+- Knowledge graph evaluation
+
+#### `03_MachineLearning`
+
+Contains the predictive modelling pipeline.
+
+This includes:
+
+- Temporal feature engineering
+- Training and validation datasets
+- XGBoost modelling # needs to change
+- Model evaluation
+- Feature importance and explainability
+
+#### `04_AgenticRAG`
+
+Contains the retrieval and agentic reasoning components.
+
+This includes:
+
+- Graph-based retrieval
+- Temporal knowledge retrieval
+- Context construction
+- Integration of predictive model outputs
+- Agent tools and orchestration
+- Response generation and explanation
+- RAG/agent evaluation
+
+---
+
+## SECTION 6 : DATASET
+
+The project uses publicly available historical Jira software project data as its primary source.
+
+Selected Jira projects are organised into project instances and temporal snapshots. For selected project instances, additional project artefacts are generated using LLMs to simulate information that may normally exist outside an issue tracking system.
+
+Generated artefacts include:
+
+- Project Requirements Documents (PRDs)
+- Meeting transcripts
+
+Generated artefacts maintain provenance linking them to their supporting Jira records and are constrained according to the project information available at the corresponding point in time.
+
+A typical generated project instance follows the structure:
+
+```text
+PROJECT-I01/
+│
+├── snapshot_manifest.json
+├── generation_manifest.json
+│
+├── prds/
+│   └── ...
+│
+└── meetings/
+    └── ...
+```
+
+The manifests are used to maintain temporal consistency, provenance, reproducibility, and support later evaluation.
+
+---
+
+## SECTION 7 : TECHNOLOGIES
+
+The current implementation is primarily Python-based and developed using Jupyter/Google Colab notebooks.
+
+Technologies currently planned or under evaluation include:
+
+- Python
+- Jupyter Notebook / Google Colab
+- OpenAI GPT models
+- XGBoost 
+- Knowledge Graph technologies
+- Graph-based retrieval
+- Large Language Models
+- Agentic RAG
+
+Additional libraries and infrastructure will be documented as implementation progresses.
+
+---
+
+## SECTION 8 : CREDITS / PROJECT CONTRIBUTION
+
+| Official Full Name | Student ID | Work Items | Email (Optional) |
+| Akansha Sajimon | A0352134N | To be updated | akanshasajimon@u.nus.edu |
+| Cho Laqshya | A0357002R | To be updated | cho.laqshya@u.nus.edu |
+| Rajamanickam Abirami | A0354513J | To be updated | abiramirajamanickam@u.nus.edu |
+| Ravikumar Prithika | A0354287U | To be updated | prithika.ravikumar@u.nus.edu |
+
+---
+
+## SECTION 9 : VIDEO OF SYSTEM MODELLING & USE CASE DEMO
+
+The final system modelling and demonstration video will be added here.
+
+**Video:** To be added.
+
+Supporting material will also be available under:
+
+```text
+Video/
+```
+
+---
+
+## SECTION 10 : USER GUIDE
+
+Detailed installation and usage instructions will be provided once the implementation environment has stabilised.
+
+Current development is primarily performed using:
+
+- Python
+- Jupyter Notebook
+- Google Colab
+
+The final user guide will document:
+
+1. Environment setup
+2. Required dependencies
+3. Dataset preparation
+4. Data generation
+5. Knowledge extraction
+6. Knowledge graph construction
+7. Machine-learning pipeline
+8. Agentic RAG execution
+9. Evaluation procedures
+
+Refer to the final project report under:
+
+```text
+ProjectReport/
+```
+
+---
+
+## SECTION 11 : PROJECT REPORT / PAPER
+
+The final project report will be available under:
+
+```text
+ProjectReport/
+```
+
+Planned report sections include:
+
+- Executive Summary / Abstract
+- Problem Background
+- Literature Review / Related Work
+- Project Objectives
+- Dataset and Data Generation
+- System Architecture
+- Information Extraction
+- Temporal Knowledge Graph
+- Machine Learning
+- Agentic Graph RAG
+- Experimental Methodology
+- Evaluation
+- Results and Discussion
+- Limitations
+- Future Work
+- Conclusion
+- References
+- Appendices
+
+---
+
+## SECTION 12 : EVALUATION
+
+The project is intended to evaluate the system at multiple levels rather than relying solely on final end-to-end performance.
+
+Planned evaluation areas include:
+
+### Data Generation
+
+- Temporal consistency
+- Provenance correctness
+- Source grounding
+- Generated artefact quality
+
+### Information Extraction & Knowledge Graph
+
+- Entity extraction quality
+- Relationship extraction quality
+- Entity resolution accuracy
+- Temporal consistency
+- Knowledge graph completeness and correctness
+
+### Machine Learning
+
+- Predictive performance
+- Baseline comparison
+- Temporal validation
+- Feature importance
+- Explainability
+
+### Agentic Graph RAG
+
+- Retrieval quality
+- Groundedness
+- Answer correctness
+- Temporal reasoning
+- Usefulness of predictive information
+- End-to-end system performance
+
+Detailed metrics and experimental protocols will be documented as the evaluation framework is finalised.
+
+---
+
+## SECTION 13 : MISCELLANEOUS
+
+Additional project materials that do not belong directly to the implementation or report will be stored under:
+
+```text
+Miscellaneous/
+```
+
+This may include:
+
+- Architecture diagrams
+- Experimental notes
+- Supporting documentation
+- Presentation material
+- Additional evaluation artefacts
+
+---
