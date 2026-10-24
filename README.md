@@ -1,391 +1,119 @@
-﻿# [ Practice Module ] Project Submission
----
+# [ Practice Module ] Project Submission
 
 ## SECTION 1 : PROJECT TITLE
 
-# Predictive Enterprise Project Risk Analysis using Temporal Knowledge Graphs
-
-
----
+# Predictive Enterprise Project Risk Analysis Using Temporal Knowledge Graphs
 
 ## SECTION 2 : EXECUTIVE SUMMARY / PAPER ABSTRACT
 
-Software projects generate large volumes of heterogeneous information across issue tracking systems, requirements documents, meeting discussions, and other project artefacts. Important knowledge about requirements, dependencies, risks, decisions, project progress, and potential delivery problems is often distributed across these different sources and evolves over time.
+Software projects produce issue histories, requirements, meeting records and dependency data that change over time. This project brings those sources together to investigate how temporal knowledge graphs, machine learning and evidence-grounded language models can support project-risk analysis.
 
-This project investigates the use of **Large Language Models (LLMs), Temporal Knowledge Graphs, Machine Learning, and Agentic Retrieval-Augmented Generation (RAG)** to construct an intelligent software project analysis and decision-support system.
+The workflow starts with public Jira data. Selected project instances are enriched with **synthetically generated** project requirements documents (PRDs) and meeting transcripts; those generated materials are not independently collected enterprise records. The notebooks extract entities, relationships and events with source and time provenance, resolve entity mentions, and construct a temporal knowledge graph.
 
-The project uses historical software project data derived primarily from public Jira repositories. To create a richer multi-source project environment, selected Jira project instances are supplemented with synthetically generated Project Requirements Documents (PRDs) and meeting transcripts. Generated artefacts are temporally constrained by the Jira information available at the corresponding point in the project timeline and maintain provenance information linking them to their supporting source records.
+Historical project checkpoints are then used to create point-in-time features and 14-day Schedule, Scope and Dependency Risk labels. TabPFN and CatBoost models produce risk scores and investigation triggers. An event-focused GraphRAG retrieval stage assembles checkpoint-eligible Jira and graph evidence. The final demonstration notebook browses saved investigation reports and can run a separate, single-case Qwen evidence-summary demonstration.
 
-An LLM-based information extraction pipeline is then used to extract structured entities, relationships, events, and temporal information from Jira issues, PRDs, and meeting transcripts. Entity resolution is performed before the extracted information is integrated into a **temporal knowledge graph**, allowing the state and evolution of software projects to be represented over time.
-
-In parallel, temporal project features are constructed for a **machine-learning prediction pipeline**, with XGBoost used to investigate predictive signals associated with software project outcomes and risks.
-
-Finally, an **Agentic Graph RAG** layer combines knowledge retrieval, graph-based reasoning, machine-learning outputs, and LLM-based interaction to support project-related queries and explanations.
-
-The overall system is organised into four major components:
-
-1. **Data Generation and Preparation**
-2. **Knowledge Extraction and Temporal Knowledge Graph Construction**
-3. **Machine Learning and Predictive Modelling**
-4. **Agentic Graph RAG and Decision Support**
-
-The project will also evaluate the quality of the generated dataset, information extraction and knowledge graph construction, machine-learning performance, and the final retrieval and reasoning system.
-
----
+This is a research prototype assembled from notebooks, not a one-command production application. Each stage depends on external data and artifacts created by earlier stages. Results should be interpreted with the evaluation scope and limitations described below.
 
 ## SECTION 3 : PROJECT OBJECTIVES
 
-The primary objective of this project is to investigate how structured knowledge representation, machine learning, and LLM-based reasoning can be combined to support software project intelligence.
-
-The project aims to:
-
-- Construct a temporally organised, multi-source software project dataset from public Jira records and generated project artefacts.
-- Extract project entities, relationships, events, and temporal information using LLM-based information extraction.
-- Perform entity resolution across heterogeneous project documents.
-- Construct a temporal knowledge graph representing the evolution of software projects.
-- Engineer temporal project features suitable for machine-learning models.
-- Train and evaluate an XGBoost-based predictive model.
-- Develop a Graph RAG retrieval mechanism over the temporal knowledge graph.
-- Develop an agentic reasoning layer capable of combining retrieved project knowledge and predictive outputs.
-- Evaluate the individual system components as well as the overall end-to-end architecture.
-
----
+- Prepare selected public Jira project histories and temporally aligned synthetic PRDs and meeting transcripts.
+- Extract project entities, relationships, events and temporal information with source provenance.
+- Resolve entity mentions and construct a temporal knowledge graph.
+- Reconstruct historical checkpoints and engineer features using only information available at each checkpoint.
+- Investigate prediction of Schedule, Scope and Dependency Risk over a 14-day horizon.
+- Retrieve historical graph/Jira evidence for selected risk investigations and present it with citations.
+- Evaluate data, extraction, graph, prediction, retrieval and explanation components while documenting their limits.
 
 ## SECTION 4 : SYSTEM ARCHITECTURE
 
-The project currently follows the high-level pipeline below:
+![System architecture](./Miscellaneous/system_architecture.jpeg)
 
-```text
-Public Jira Dataset
-        |
-        v
-+-----------------------------+
-| 1. Data Generation          |
-|                             |
-| - Dataset profiling         |
-| - Project selection         |
-| - Temporal snapshots        |
-| - PRD generation            |
-| - Meeting generation        |
-| - Provenance manifests      |
-+-------------+---------------+
-              |
-              | Jira + PRDs + Meetings
-              v
-+-----------------------------+
-| 2. Knowledge Graph          |
-|                             |
-| - Entity extraction         |
-| - Relation extraction       |
-| - Temporal extraction       |
-| - Entity resolution         |
-| - Temporal KG construction  |
-| - KG evaluation             |
-+-------------+---------------+
-              |
-              | Temporal Knowledge Graph
-              |
-       +------+------+
-       |             |
-       v             v
-+-------------+  +------------------+
-| 3. Machine  |  | 4. Agentic      |
-| Learning    |  | Graph RAG       |
-|             |  |                  |
-| - Features  |  | - Graph retrieval|
-| - XGBoost   |  | - Context        |
-| - Evaluation|  | - Agent reasoning|
-| - XAI       |  | - Explanations   |
-+------+------+  +--------+---------+
-       |                  |
-       +---------+--------+
-                 |
-                 v
-       Project Intelligence /
-         Decision Support
-```
-
-> The architecture may be refined as implementation and evaluation progress.
-
----
+The repository contains separately developed notebooks for each stage. It does not provide a single automated orchestration command; follow the prerequisites and execution order documented in the component READMEs.
 
 ## SECTION 5 : REPOSITORY STRUCTURE
 
-The repository follows the project submission structure provided for the Practice Module.
-
 ```text
-Project/
-│
+.
 ├── Miscellaneous/
-│
 ├── ProjectReport/
-│
 ├── SystemCode/
-│   │
-│   ├── 01_DataGeneration/
-│   │
-│   ├── 02_KnowledgeGraph/
-│   │
-│   ├── 03_MachineLearning/
-│   │
-│   ├── 04_AgenticRAG/
-│   │
-│   └── requirements.txt
-│
-├── Video/
-│
-└── README.md
+│   ├── DataGeneration/
+│   ├── KnowledgePipeline/
+│   │   └── evaluation/
+│   │       └── experiments/
+│   ├── MachineLearning/
+│   │   └── evaluation/
+│   └── AgenticRAG/
+│       ├── data/
+│       └── evaluation/
+└── Video/
 ```
 
-### SystemCode Components
-
-#### `01_DataGeneration`
-
-Contains the data preparation and synthetic artefact generation pipeline.
-
-This includes:
-
-- Jira dataset profiling
-- Selection of suitable project instances
-- Construction of temporal snapshots
-- Generation of PRDs
-- Generation of meeting transcripts
-- Generation of provenance and snapshot manifests
-
-#### `02_KnowledgeGraph`
-
-Contains the information extraction and knowledge graph construction pipeline.
-
-This includes:
-
-- Entity extraction
-- Relationship extraction
-- Temporal information extraction
-- Entity resolution
-- Knowledge graph population
-- Temporal knowledge graph construction
-- Knowledge graph evaluation
-
-#### `03_MachineLearning`
-
-Contains the predictive modelling pipeline.
-
-This includes:
-
-- Temporal feature engineering
-- Training and validation datasets
-- XGBoost modelling # needs to change
-- Model evaluation
-- Feature importance and explainability
-
-#### `04_AgenticRAG`
-
-Contains the retrieval and agentic reasoning components.
-
-This includes:
-
-- Graph-based retrieval
-- Temporal knowledge retrieval
-- Context construction
-- Integration of predictive model outputs
-- Agent tools and orchestration
-- Response generation and explanation
-- RAG/agent evaluation
-
----
+- [SystemCode/README.md](./SystemCode/README.md) describes the end-to-end notebook sequence.
+- [DataGeneration/README.md](./SystemCode/DataGeneration/README.md) covers dataset preparation and synthetic artifacts.
+- [KnowledgePipeline/README.md](./SystemCode/KnowledgePipeline/README.md) covers extraction, entity resolution and temporal graph construction.
+- [MachineLearning/README.md](./SystemCode/MachineLearning/README.md) covers snapshots, features, risk models and triggers.
+- [AgenticRAG/README.md](./SystemCode/AgenticRAG/README.md) documents evidence retrieval and the final demo notebook.
 
 ## SECTION 6 : DATASET
 
-The project uses publicly available historical Jira software project data as its primary source.
+The primary source is public historical Jira data organized into project instances and weekly checkpoints. For selected instances, PRDs and meeting transcripts are generated synthetically from temporally available project information. They must be identified as generated artifacts and must not be described as independently collected company documents.
 
-Selected Jira projects are organised into project instances and temporal snapshots. For selected project instances, additional project artefacts are generated using LLMs to simulate information that may normally exist outside an issue tracking system.
+The documented snapshot/modeling workflow uses 30 project instances and 987 weekly checkpoints, with a 14-day outcome horizon. Raw source datasets, generated artifacts, full graph exports and many intermediate files are external to this Git repository and must be placed in the paths expected by the relevant notebooks. See each component README before attempting upstream reproduction.
 
-Generated artefacts include:
-
-- Project Requirements Documents (PRDs)
-- Meeting transcripts
-
-Generated artefacts maintain provenance linking them to their supporting Jira records and are constrained according to the project information available at the corresponding point in time.
-
-A typical generated project instance follows the structure:
-
-```text
-PROJECT-I01/
-│
-├── snapshot_manifest.json
-├── generation_manifest.json
-│
-├── prds/
-│   └── ...
-│
-└── meetings/
-    └── ...
-```
-
-The manifests are used to maintain temporal consistency, provenance, reproducibility, and support later evaluation.
-
----
+Source IDs, timestamps, checkpoint boundaries and provenance are essential to interpreting results. Future information is used to define supervised outcomes, not as a predictive feature or as evidence available to a historical investigation.
 
 ## SECTION 7 : TECHNOLOGIES
 
-The current implementation is primarily Python-based and developed using Jupyter/Google Colab notebooks.
-
-Technologies currently planned or under evaluation include:
-
-- Python
-- Jupyter Notebook / Google Colab
-- OpenAI GPT models
-- XGBoost 
-- Knowledge Graph technologies
-- Graph-based retrieval
-- Large Language Models
-- Agentic RAG
-
-Additional libraries and infrastructure will be documented as implementation progresses.
-
----
+The implementation is primarily Python notebooks developed for Google Colab and Google Drive. The notebooks use data-science libraries such as pandas, NumPy, PyArrow and scikit-learn; GLiNER for semantic extraction; Neo4j-related graph tooling; TabPFN and CatBoost for risk prediction; SHAP for model attribution; and BM25, FAISS, sentence-transformers, cross-encoders and Qwen for retrieval and report demonstrations. Exact dependencies and runtime requirements vary by notebook; there is no repository-wide pinned environment.
 
 ## SECTION 8 : CREDITS / PROJECT CONTRIBUTION
 
 | Official Full Name | Student ID | Work Items | Email (Optional) |
-| Akansha Sajimon | A0352134N | To be updated | akanshasajimon@u.nus.edu |
-| Cho Laqshya | A0357002R | To be updated | cho.laqshya@u.nus.edu |
-| Rajamanickam Abirami | A0354513J | To be updated | abiramirajamanickam@u.nus.edu |
-| Ravikumar Prithika | A0354287U | To be updated | prithika.ravikumar@u.nus.edu |
-
----
+|---|---|---|---|
+| Akansha Sajimon | A0352134N | Entity resolution; Neo4j graph population; PRD and meeting generation | akanshasajimon@u.nus.edu |
+| Cho Laqshya | A0357002R | Agentic notebooks and demo; all evaluation notebooks | cho.laqshya@u.nus.edu |
+| Rajamanickam Abirami | A0354513J | Entity extraction; dataset download; project selection | abiramirajamanickam@u.nus.edu |
+| Ravikumar Prithika | A0354287U | Machine learning; event-focused retrieval | prithika.ravikumar@u.nus.edu |
 
 ## SECTION 9 : VIDEO OF SYSTEM MODELLING & USE CASE DEMO
 
-The final system modelling and demonstration video will be added here.
-
-**Video:** To be added.
-
-Supporting material will also be available under:
-
-```text
-Video/
-```
-
----
-
+Presentation and demonstration media are present in [Video/](./Video/).
 ## SECTION 10 : USER GUIDE
 
-Detailed installation and usage instructions will be provided once the implementation environment has stabilised.
+### Final runnable demonstration
 
-Current development is primarily performed using:
+The final demonstration notebook is [GC1_Professor_Demo_Live_and_139_Report_Browser.ipynb](./SystemCode/AgenticRAG/GC1_Professor_Demo_Live_and_139_Report_Browser.ipynb). It contains a browser for the previously generated 139 V5 reports and a separate single-case Qwen evidence-summary flow. The browser and live Qwen summary are different features; running the live summary does not recreate the original 139-report batch.
 
-- Python
-- Jupyter Notebook
-- Google Colab
+The full-run report file `SystemCode/AgenticRAG/data/llm_pilot_reports.jsonl` is included with the demo inputs. The notebook validates that it contains exactly 139 reports with unique trigger IDs before opening the report browser.
 
-The final user guide will document:
+#### Run in Google Colab
 
-1. Environment setup
-2. Required dependencies
-3. Dataset preparation
-4. Data generation
-5. Knowledge extraction
-6. Knowledge graph construction
-7. Machine-learning pipeline
-8. Agentic RAG execution
-9. Evaluation procedures
+1. Open the notebook in Colab and use a runtime with a **T4 GPU** (or compatible CUDA GPU) for the Qwen section. The saved-report browser itself does not need a GPU.
+2. Make the cloned repository's `SystemCode/AgenticRAG` directory the notebook working directory, or edit `REPO_ROOT` in the environment-configuration cell to point to that directory. The notebook uses the current working directory to locate `data/` and create `demo_outputs/`.
+3. Keep `llm_pilot_reports.jsonl`, `test_predictions.parquet` and `agentic_graphrag_retrieval_queue.jsonl` in the notebook's `data/` directory.
+4. Run cells from top to bottom. Allow the lightweight dependencies (`pandas`, `pyarrow`, `ipywidgets`) to install. Confirm the setup cell reports valid paths and that the report-browser checks accept 139 unique reports.
+5. Use the browser controls to inspect reports and export the report summary. Outputs are written under `SystemCode/AgenticRAG/demo_outputs/`.
+6. To run the separate live summary, select a supported test case and continue through the Qwen setup and generation cells. The notebook installs Transformers/Accelerate/bitsandbytes, downloads `Qwen/Qwen2.5-3B-Instruct`, and requires CUDA. Do not treat generated text as causal proof or as a replacement for the saved reports.
+7. Review the evidence IDs, checkpoint timestamps and generated output before presenting it. The notebook's own checks do not establish factual accuracy.
 
-Refer to the final project report under:
+In a local VS Code/Jupyter environment, use a compatible Python kernel and install the notebook's listed dependencies first. The Qwen inference cells are not expected to work on a CPU-only machine.
 
-```text
-ProjectReport/
-```
+#### Reproduce the upstream pipeline
 
----
+For dataset preparation, extraction/graph construction, risk prediction and retrieval, follow the notebook order and external-data requirements in the component READMEs. In brief: Data Generation → Knowledge Pipeline → Machine Learning → AgenticRAG retrieval → final demo. The final demo can browse supplied saved reports without rerunning all upstream experiments, but it cannot run without the report JSONL.
 
 ## SECTION 11 : PROJECT REPORT / PAPER
 
-The final project report will be available under:
-
-```text
-ProjectReport/
-```
-
-Planned report sections include:
-
-- Executive Summary / Abstract
-- Problem Background
-- Literature Review / Related Work
-- Project Objectives
-- Dataset and Data Generation
-- System Architecture
-- Information Extraction
-- Temporal Knowledge Graph
-- Machine Learning
-- Agentic Graph RAG
-- Experimental Methodology
-- Evaluation
-- Results and Discussion
-- Limitations
-- Future Work
-- Conclusion
-- References
-- Appendices
-
----
+The project report belongs in [ProjectReport/](./ProjectReport/). Recommended coverage includes the problem and related work, dataset and synthetic-data methodology, system architecture, temporal extraction and graph construction, point-in-time feature design, model and retrieval methodology, evaluation, results, limitations, references and appendices. Clearly distinguish implemented results from proposed work and disclose data/runtime dependencies.
 
 ## SECTION 12 : EVALUATION
 
-The project is intended to evaluate the system at multiple levels rather than relying solely on final end-to-end performance.
+Evaluation is component-specific:
 
-Planned evaluation areas include:
+- **Data generation:** temporal alignment, provenance and source grounding.
+- **Extraction and graph:** structural validation, temporal consistency, source identity and entity-resolution review.
+- **Machine learning:** project-level splits, label validation, leakage audits, validation-based threshold selection and risk-specific metrics.
+- **Retrieval and reports:** checkpoint eligibility, retrieval ranking, evidence use and claim support.
 
-### Data Generation
-
-- Temporal consistency
-- Provenance correctness
-- Source grounding
-- Generated artefact quality
-
-### Information Extraction & Knowledge Graph
-
-- Entity extraction quality
-- Relationship extraction quality
-- Entity resolution accuracy
-- Temporal consistency
-- Knowledge graph completeness and correctness
-
-### Machine Learning
-
-- Predictive performance
-- Baseline comparison
-- Temporal validation
-- Feature importance
-- Explainability
-
-### Agentic Graph RAG
-
-- Retrieval quality
-- Groundedness
-- Answer correctness
-- Temporal reasoning
-- Usefulness of predictive information
-- End-to-end system performance
-
-Detailed metrics and experimental protocols will be documented as the evaluation framework is finalised.
-
----
-
-## SECTION 13 : MISCELLANEOUS
-
-Additional project materials that do not belong directly to the implementation or report will be stored under:
-
-```text
-Miscellaneous/
-```
-
-This may include:
-
-- Architecture diagrams
-- Experimental notes
-- Supporting documentation
-- Presentation material
-- Additional evaluation artefacts
-
----
+Evaluation notebooks and audit files are under the corresponding component `evaluation/` folders. Reported counts and preliminary/AI-assisted reviews are not equivalent to independently verified accuracy. In particular, a valid evidence citation does not by itself prove that a claim is true, and the current saved-output audits do not establish causal effects. Consult each evaluation README for its scope, inputs and caveats.
