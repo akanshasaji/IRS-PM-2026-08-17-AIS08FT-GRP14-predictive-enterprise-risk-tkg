@@ -33,6 +33,10 @@ The event-focused retrieval notebook is designed for Google Colab with Google Dr
 
 The frozen V5 run is documented as 139 requests processed (137 local-Qwen reports and two rule-based abstentions). These counts describe outputs, not report accuracy. Retrieval metrics and claim-support reviews in the evaluation materials are preliminary or sample-specific; evidence IDs and a successful schema check do not prove factual correctness.
 
+## Results
+
+To inspect the saved run outputs and reports, see the [results/](./results/) folder.
+
 ## Final demo prerequisites
 
 The [data/](./data/README.md) folder includes `llm_pilot_reports.jsonl`, `test_predictions.parquet` and `agentic_graphrag_retrieval_queue.jsonl`. The report browser validates that the saved report file contains exactly 139 records with unique trigger IDs.

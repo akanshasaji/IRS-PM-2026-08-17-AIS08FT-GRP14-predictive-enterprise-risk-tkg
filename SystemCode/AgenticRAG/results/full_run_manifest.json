@@ -1,0 +1,13 @@
+{
+  "expected_requests": 139,
+  "saved_reports": 139,
+  "unique_report_ids": 139,
+  "missing_trigger_ids": [],
+  "unexpected_trigger_ids": [],
+  "duplicate_report_ids": 0,
+  "validation_requests": 74,
+  "exploratory_test_requests": 65,
+  "automated_flagged_reports": 8,
+  "run_config_hash": "51e76007af4cb2afe379883763c2cbd73700dd39c47dd0e8094b95f90e3d075b",
+  "full_queue_complete": true
+}

@@ -1,0 +1,28 @@
+{
+  "queue_requests": 139,
+  "investigations_processed": 139,
+  "run_mode": "FULL",
+  "run_config_hash": "51e76007af4cb2afe379883763c2cbd73700dd39c47dd0e8094b95f90e3d075b",
+  "generation_modes": {
+    "LOCAL_LLM": 137,
+    "RULE_ABSTENTION": 2
+  },
+  "conclusions": {
+    "LIMITED_EVIDENCE_OBSERVATIONS": 121,
+    "INCONCLUSIVE": 18
+  },
+  "unsafe_evidence_full_queue": 78,
+  "verified_source_text_full_queue": 0,
+  "flagged_reports": 8,
+  "claims_needing_semantic_review": 155,
+  "model": "Qwen/Qwen2.5-3B-Instruct",
+  "unique_report_triggers": 139,
+  "followup_mode": "SAME_INSTANCE_HISTORICAL_QUEUE_CACHE",
+  "limitations": [
+    "Not fresh Neo4j traversal; follow-up only reuses existing retrieval queue evidence.",
+    "On-demand SHAP is not executed; driver attributions must not be invented.",
+    "No independent semantic faithfulness verification; human review sheet is required.",
+    "Graph-derived observations are not verified original source quotations.",
+    "Deterministically stratified pilot is not a random sample; pilot rates do not estimate full-queue accuracy."
+  ]
+}
