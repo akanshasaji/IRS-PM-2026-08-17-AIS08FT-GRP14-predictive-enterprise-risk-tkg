@@ -1,132 +1,119 @@
-﻿### [ Practice Module ] Project Submission Template: Github Repository & Zip File
-
-**[ Naming Convention ]** CourseCode-StartDate-BatchCode-TeamName-ProjectName.zip
-
-* **[ MTech Thru-Train Group Project Naming Example ]** IRS-PM-2020-01-18-IS02PT-GRP-AwsomeSG-HDB_BTO_Recommender.zip
-
-* **[ MTech Stackable Group Project Naming Example ]** IRS-PM-2020-01-18-STK02-GRP-AwsomeSG-HDB_BTO_Recommender.zip
-
-[Online editor for this README.md markdown file](https://pandao.github.io/editor.md/en.html "pandao")
-
----
-
-### <<<<<<<<<<<<<<<<<<<< Start of Template >>>>>>>>>>>>>>>>>>>>
-
----
+# [ Practice Module ] Project Submission
 
 ## SECTION 1 : PROJECT TITLE
-## Singapore Housing & Deveoplment Board - BTO Recommender System
 
-<img src="SystemCode/clips/static/hdb-bto.png"
-     style="float: left; margin-right: 0px;" />
-
----
+# Predictive Enterprise Project Risk Analysis Using Temporal Knowledge Graphs
 
 ## SECTION 2 : EXECUTIVE SUMMARY / PAPER ABSTRACT
-Singapore ranks amongst countries with the highest population density in the world. In a bid to have firm control over long term urban planning, the Singapore government came up with the “Built to Order” (abbreviated BTO) initiative back in 2001. These are new Housing Development Board (HDB) flats tightly controlled by their eligibility and quantity released every year. In more recent years, the modern BTO scheme in Singapore requires a waiting period of 3-4 years, and is generally targeted at young Singaporean couples looking to purchase their first property and set up a family. Nationality and income ceilings are some of the broad filters that determine one’s eligibility for the highly sought after projects. 
 
+Software projects produce issue histories, requirements, meeting records and dependency data that change over time. This project brings those sources together to investigate how temporal knowledge graphs, machine learning and evidence-grounded language models can support project-risk analysis.
 
-Our team, comprising of 6 young Singaporeans, all hope to be property owners one day. Many of our peers opt for BTO flats due to their affordability, existence of financial aid from the government, as well as their resale value. However, there often exists a knowledge gap for these young couples during the decision making process and they end up making potentially regretful decisions. We would like to bridge this knowledge gap, and have hence chosen to base our project on creating a recommender system for BTO flats, utilizing the data from recent launches in Tampines, Eunos, Sengkang and Punggol. 
+The workflow starts with public Jira data. Selected project instances are enriched with **synthetically generated** project requirements documents (PRDs) and meeting transcripts; those generated materials are not independently collected enterprise records. The notebooks extract entities, relationships and events with source and time provenance, resolve entity mentions, and construct a temporal knowledge graph.
 
+Historical project checkpoints are then used to create point-in-time features and 14-day Schedule, Scope and Dependency Risk labels. TabPFN and CatBoost models produce risk scores and investigation triggers. An event-focused GraphRAG retrieval stage assembles checkpoint-eligible Jira and graph evidence. The final demonstration notebook browses saved investigation reports and can run a separate, single-case Qwen evidence-summary demonstration.
 
-Using the techniques imparted to us in lectures, our group first set out to build a sizeable knowledge base via conducting an interview and administering a survey. While building the system, we utilized tools such as Java to scrape real time data from HDB website and transform it into a database, CLIPS to synthesize the rule based reasoning process, and Python to integrate it into an easy to use UI for the everyday user. To add icing on the cake, we even hosted the system on a website so that the everyday user can access it through the click of a link.
+This is a research prototype assembled from notebooks, not a one-command production application. Each stage depends on external data and artifacts created by earlier stages. Results should be interpreted with the evaluation scope and limitations described below.
 
+## SECTION 3 : PROJECT OBJECTIVES
 
-Our team had an amazing time working on this project, and hope to share our insights with everyone. Despite a focus on BTO flats, we would recommend it for everybody interested in understanding property market trends for residence or investment purposes. There truly are a wide array of factors behind the decision to invest in a property, and we only wish there was more time to work on the scope and scale of the project. 
+- Prepare selected public Jira project histories and temporally aligned synthetic PRDs and meeting transcripts.
+- Extract project entities, relationships, events and temporal information with source provenance.
+- Resolve entity mentions and construct a temporal knowledge graph.
+- Reconstruct historical checkpoints and engineer features using only information available at each checkpoint.
+- Investigate prediction of Schedule, Scope and Dependency Risk over a 14-day horizon.
+- Retrieve historical graph/Jira evidence for selected risk investigations and present it with citations.
+- Evaluate data, extraction, graph, prediction, retrieval and explanation components while documenting their limits.
 
----
+## SECTION 4 : SYSTEM ARCHITECTURE
 
-## SECTION 3 : CREDITS / PROJECT CONTRIBUTION
+![System architecture](./Miscellaneous/system_architecture.jpeg)
 
-| Official Full Name  | Student ID (MTech Applicable)  | Work Items (Who Did What) | Email (Optional) |
-| :------------ |:---------------:| :-----| :-----|
-| Desmond Chua | A1234567A | xxxxxxxxxx yyyyyyyyyy zzzzzzzzzz| A1234567A@nus.edu.sg |
-| Chang Ye Han | A1234567B | xxxxxxxxxx yyyyyyyyyy zzzzzzzzzz| A1234567B@gmail.com |
-| Chee Jia Wei | A1234567C | xxxxxxxxxx yyyyyyyyyy zzzzzzzzzz| A1234567C@outlook.com |
-| Ganesh Kumar | A1234567D | xxxxxxxxxx yyyyyyyyyy zzzzzzzzzz| A1234567D@yahoo.com |
-| Jeanette Lim | A1234567E | xxxxxxxxxx yyyyyyyyyy zzzzzzzzzz| A1234567E@qq.com |
+The repository contains separately developed notebooks for each stage. It does not provide a single automated orchestration command; follow the prerequisites and execution order documented in the component READMEs.
 
----
+## SECTION 5 : REPOSITORY STRUCTURE
 
-## SECTION 4 : VIDEO OF SYSTEM MODELLING & USE CASE DEMO
+```text
+.
+├── Miscellaneous/
+├── ProjectReport/
+├── SystemCode/
+│   ├── DataGeneration/
+│   ├── KnowledgePipeline/
+│   │   └── evaluation/
+│   │       └── experiments/
+│   ├── MachineLearning/
+│   │   └── evaluation/
+│   └── AgenticRAG/
+│       ├── data/
+│       └── evaluation/
+└── Video/
+```
 
-[![Sudoku AI Solver](http://img.youtube.com/vi/-AiYLUjP6o8/0.jpg)](https://youtu.be/-AiYLUjP6o8 "Sudoku AI Solver")
+- [SystemCode/README.md](./SystemCode/README.md) describes the end-to-end notebook sequence.
+- [DataGeneration/README.md](./SystemCode/DataGeneration/README.md) covers dataset preparation and synthetic artifacts.
+- [KnowledgePipeline/README.md](./SystemCode/KnowledgePipeline/README.md) covers extraction, entity resolution and temporal graph construction.
+- [MachineLearning/README.md](./SystemCode/MachineLearning/README.md) covers snapshots, features, risk models and triggers.
+- [AgenticRAG/README.md](./SystemCode/AgenticRAG/README.md) documents evidence retrieval and the final demo notebook.
 
-Note: It is not mandatory for every project member to appear in video presentation; Presentation by one project member is acceptable. 
-More reference video presentations [here](https://telescopeuser.wordpress.com/2018/03/31/master-of-technology-solution-know-how-video-index-2/ "video presentations")
+## SECTION 6 : DATASET
 
----
+The primary source is public historical Jira data organized into project instances and weekly checkpoints. For selected instances, PRDs and meeting transcripts are generated synthetically from temporally available project information. They must be identified as generated artifacts and must not be described as independently collected company documents.
 
-## SECTION 5 : USER GUIDE
+The documented snapshot/modeling workflow uses 30 project instances and 987 weekly checkpoints, with a 14-day outcome horizon. Raw source datasets, generated artifacts, full graph exports and many intermediate files are external to this Git repository and must be placed in the paths expected by the relevant notebooks. See each component README before attempting upstream reproduction.
 
-`Refer to appendix <Installation & User Guide> in project report at Github Folder: ProjectReport`
+Source IDs, timestamps, checkpoint boundaries and provenance are essential to interpreting results. Future information is used to define supervised outcomes, not as a predictive feature or as evidence available to a historical investigation.
 
-### [ 1 ] To run the system using iss-vm
+## SECTION 7 : TECHNOLOGIES
 
-> download pre-built virtual machine from http://bit.ly/iss-vm
+The implementation is primarily Python notebooks developed for Google Colab and Google Drive. The notebooks use data-science libraries such as pandas, NumPy, PyArrow and scikit-learn; GLiNER for semantic extraction; Neo4j-related graph tooling; TabPFN and CatBoost for risk prediction; SHAP for model attribution; and BM25, FAISS, sentence-transformers, cross-encoders and Qwen for retrieval and report demonstrations. Exact dependencies and runtime requirements vary by notebook; there is no repository-wide pinned environment.
 
-> start iss-vm
+## SECTION 8 : CREDITS / PROJECT CONTRIBUTION
 
-> open terminal in iss-vm
+| Official Full Name | Student ID | Work Items | Email (Optional) |
+|---|---|---|---|
+| Akansha Sajimon | A0352134N | Entity resolution; Neo4j graph population; PRD and meeting generation | akanshasajimon@u.nus.edu |
+| Cho Laqshya | A0357002R | Agentic notebooks and demo; all evaluation notebooks | cho.laqshya@u.nus.edu |
+| Rajamanickam Abirami | A0354513J | Entity extraction; dataset download; project selection | abiramirajamanickam@u.nus.edu |
+| Ravikumar Prithika | A0354287U | Machine learning; event-focused retrieval | prithika.ravikumar@u.nus.edu |
 
-> $ git clone https://github.com/telescopeuser/Workshop-Project-Submission-Template.git
+## SECTION 9 : VIDEO OF SYSTEM MODELLING & USE CASE DEMO
 
-> $ source activate iss-env-py2
+Presentation and demonstration media are present in [Video/](./Video/).
+## SECTION 10 : USER GUIDE
 
-> (iss-env-py2) $ cd Workshop-Project-Submission-Template/SystemCode/clips
+### Final runnable demonstration
 
-> (iss-env-py2) $ python app.py
+The final demonstration notebook is [GC1_Professor_Demo_Live_and_139_Report_Browser.ipynb](./SystemCode/AgenticRAG/GC1_Professor_Demo_Live_and_139_Report_Browser.ipynb). It contains a browser for the previously generated 139 V5 reports and a separate single-case Qwen evidence-summary flow. The browser and live Qwen summary are different features; running the live summary does not recreate the original 139-report batch.
 
-> **Go to URL using web browser** http://0.0.0.0:5000 or http://127.0.0.1:5000
+The full-run report file `SystemCode/AgenticRAG/data/llm_pilot_reports.jsonl` is included with the demo inputs. The notebook validates that it contains exactly 139 reports with unique trigger IDs before opening the report browser.
 
-### [ 2 ] To run the system in other/local machine:
-### Install additional necessary libraries. This application works in python 2 only.
+#### Run in Google Colab
 
-> $ sudo apt-get install python-clips clips build-essential libssl-dev libffi-dev python-dev python-pip
+1. Open the notebook in Colab and use a runtime with a **T4 GPU** (or compatible CUDA GPU) for the Qwen section. The saved-report browser itself does not need a GPU.
+2. Make the cloned repository's `SystemCode/AgenticRAG` directory the notebook working directory, or edit `REPO_ROOT` in the environment-configuration cell to point to that directory. The notebook uses the current working directory to locate `data/` and create `demo_outputs/`.
+3. Keep `llm_pilot_reports.jsonl`, `test_predictions.parquet` and `agentic_graphrag_retrieval_queue.jsonl` in the notebook's `data/` directory.
+4. Run cells from top to bottom. Allow the lightweight dependencies (`pandas`, `pyarrow`, `ipywidgets`) to install. Confirm the setup cell reports valid paths and that the report-browser checks accept 139 unique reports.
+5. Use the browser controls to inspect reports and export the report summary. Outputs are written under `SystemCode/AgenticRAG/demo_outputs/`.
+6. To run the separate live summary, select a supported test case and continue through the Qwen setup and generation cells. The notebook installs Transformers/Accelerate/bitsandbytes, downloads `Qwen/Qwen2.5-3B-Instruct`, and requires CUDA. Do not treat generated text as causal proof or as a replacement for the saved reports.
+7. Review the evidence IDs, checkpoint timestamps and generated output before presenting it. The notebook's own checks do not establish factual accuracy.
 
-> $ pip install pyclips flask flask-socketio eventlet simplejson pandas
+In a local VS Code/Jupyter environment, use a compatible Python kernel and install the notebook's listed dependencies first. The Qwen inference cells are not expected to work on a CPU-only machine.
 
----
-## SECTION 6 : PROJECT REPORT / PAPER
+#### Reproduce the upstream pipeline
 
-`Refer to project report at Github Folder: ProjectReport`
+For dataset preparation, extraction/graph construction, risk prediction and retrieval, follow the notebook order and external-data requirements in the component READMEs. In brief: Data Generation → Knowledge Pipeline → Machine Learning → AgenticRAG retrieval → final demo. The final demo can browse supplied saved reports without rerunning all upstream experiments, but it cannot run without the report JSONL.
 
-**Recommended Sections for Project Report / Paper:**
-- Executive Summary / Paper Abstract
-- Sponsor Company Introduction (if applicable)
-- Business Problem Background
-- Market Research
-- Project Objectives & Success Measurements
-- Project Solution (To detail domain modelling & system design.)
-- Project Implementation (To detail system development & testing approach.)
-- Project Performance & Validation (To prove project objectives are met.)
-- Project Conclusions: Findings & Recommendation
-- Appendix of report: Project Proposal
-- Appendix of report: Mapped System Functionalities against knowledge, techniques and skills of modular courses: MR, RS, CGS
-- Appendix of report: Installation and User Guide
-- Appendix of report: 1-2 pages individual project report per project member, including: Individual reflection of project journey: (1) personal contribution to group project (2) what learnt is most useful for you (3) how you can apply the knowledge and skills in other situations or your workplaces
-- Appendix of report: List of Abbreviations (if applicable)
-- Appendix of report: References (if applicable)
+## SECTION 11 : PROJECT REPORT / PAPER
 
----
-## SECTION 7 : MISCELLANEOUS
+The project report belongs in [ProjectReport/](./ProjectReport/). Recommended coverage includes the problem and related work, dataset and synthetic-data methodology, system architecture, temporal extraction and graph construction, point-in-time feature design, model and retrieval methodology, evaluation, results, limitations, references and appendices. Clearly distinguish implemented results from proposed work and disclose data/runtime dependencies.
 
-`Refer to Github Folder: Miscellaneous`
+## SECTION 12 : EVALUATION
 
-### HDB_BTO_SURVEY.xlsx
-* Results of survey
-* Insights derived, which were subsequently used in our system
+Evaluation is component-specific:
 
----
+- **Data generation:** temporal alignment, provenance and source grounding.
+- **Extraction and graph:** structural validation, temporal consistency, source identity and entity-resolution review.
+- **Machine learning:** project-level splits, label validation, leakage audits, validation-based threshold selection and risk-specific metrics.
+- **Retrieval and reports:** checkpoint eligibility, retrieval ranking, evidence use and claim support.
 
-### <<<<<<<<<<<<<<<<<<<< End of Template >>>>>>>>>>>>>>>>>>>>
-
----
-
-**This [Machine Reasoning (MR)](https://www.iss.nus.edu.sg/executive-education/course/detail/machine-reasoning "Machine Reasoning") course is part of the Analytics and Intelligent Systems and Graduate Certificate in [Intelligent Reasoning Systems (IRS)](https://www.iss.nus.edu.sg/stackable-certificate-programmes/intelligent-systems "Intelligent Reasoning Systems") series offered by [NUS-ISS](https://www.iss.nus.edu.sg "Institute of Systems Science, National University of Singapore").**
-
-**Lecturer: [GU Zhan (Sam)](https://www.iss.nus.edu.sg/about-us/staff/detail/201/GU%20Zhan "GU Zhan (Sam)")**
-
-[![alt text](https://www.iss.nus.edu.sg/images/default-source/About-Us/7.6.1-teaching-staff/sam-website.tmb-.png "Let's check Sam' profile page")](https://www.iss.nus.edu.sg/about-us/staff/detail/201/GU%20Zhan)
-
-**zhan.gu@nus.edu.sg**
+Evaluation notebooks and audit files are under the corresponding component `evaluation/` folders. Reported counts and preliminary/AI-assisted reviews are not equivalent to independently verified accuracy. In particular, a valid evidence citation does not by itself prove that a claim is true, and the current saved-output audits do not establish causal effects. Consult each evaluation README for its scope, inputs and caveats.
